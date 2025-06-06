@@ -254,6 +254,7 @@ rkhunter_menu() {
 }
 
 # Display ASCII art logo
+display_logo() {
 cat << "EOF"
 
             _
@@ -264,6 +265,7 @@ cat << "EOF"
            |_|  
 
 EOF
+}
 
 # Install SystemKnight dependencies
 install_systemknight() {
