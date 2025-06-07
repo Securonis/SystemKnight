@@ -1,14 +1,16 @@
 #!/bin/bash
 
 # SystemKnight - Malware and Rootkit Scanner Manager for Securonis
+# A tool to easily manage ClamAV and rkhunter scans
 
+# Colors for terminal output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
-NC='\033[0m'
+NC='\033[0m' # No Color
 
-
+# Log file paths
 LOG_DIR="$(dirname "$(readlink -f "$0")")/logs"
 CLAMAV_LOG="$LOG_DIR/clamav_scan_$(date +%Y%m%d_%H%M%S).log"
 RKHUNTER_LOG="$LOG_DIR/rkhunter_scan_$(date +%Y%m%d_%H%M%S).log"
@@ -119,7 +121,7 @@ clamav_scan() {
     mkdir -p "$LOG_DIR"
     
     # Run the scan
-    clamscan $scan_options "$scan_dir" | tee "$CLAMAV_LOG"
+    clamscan "$scan_dir" $scan_options | tee "$CLAMAV_LOG"
     
     # Check if any viruses were found
     if grep -q "Infected files: 0" "$CLAMAV_LOG"; then
@@ -254,7 +256,6 @@ rkhunter_menu() {
 }
 
 # Display ASCII art logo
-display_logo() {
 cat << "EOF"
 
             _
@@ -265,7 +266,6 @@ cat << "EOF"
            |_|  
 
 EOF
-}
 
 # Install SystemKnight dependencies
 install_systemknight() {
